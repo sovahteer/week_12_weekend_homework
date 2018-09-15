@@ -6,13 +6,13 @@ const SelectView = function(selectElement) {
 
 SelectView.prototype.bindEvents = function() {
     PubSub.subscribe('Pictures:pictures-ready', (event) => {
-        this.somethingMeaningful(event.detail);
+        // this.somethingMeaningful(event.detail);
     });
-}
 
-SelectView.selectElement.addEventListener('onChange', (event) => {
-    const selectedIndex = event.target.value;
-    PubSub.publish('SelectView:change', selectedIndex);
-});
+    this.selectElement.addEventListener('onChange', (event) => {
+        const selectedIndex = event.target.value;
+        PubSub.publish('SelectView:change', selectedIndex);
+    });
+};
 
 module.exports = SelectView;

@@ -1,9 +1,9 @@
 const RequestHelper = require ('../helpers/request_helper');
 const PubSub = require ('../helpers/pub_sub');
 const API_Key = require ('../helpers/api_key');
+const DateHelper = require ('../helpers/date-helper');
 
 const AstronomyPictures = function(){
-    this.pictures = [];
 
     AstronomyPictures.prototype.bindEvents = function(){
         PubSub.subscribe('SelectView:onChange', (event) => {
@@ -12,17 +12,19 @@ const AstronomyPictures = function(){
         });
     };
 
-    AstronomyPictures.getData = function(pictureDate) {
-        const requestHelper = new RequestHelper(`https://api.nasa.gov/planetary/apod?api_key=${API_Key}&date=${pictureDate}`);
+    AstronomyPictures.prototype.getData = function(pictureDate) {
+        const requestHelper = new RequestHelper(`https://api.nasa.gov/planetary/apod?api_key=${API_Key}&date=${DateHelper.formatDate(pictureDate)}`);
         requestHelper.get((data) => {
+            console.log('Data got!', data);
             PubSub.publish('Pictures:pictures-ready', data);
             this.publishPictures(data)
         })
     }
 
-    AstronomyPictures.publishPictures = function() {
+    AstronomyPictures.prototype.publishPictures = function(data) {
         this.pictureData = data;
-        PubSub.publish('Pictures:pictures-ready', this.pictureData);
+        PubSub.publish('Pictures:pictures-ready', this.pictureData)
+        console.log(this.pictureData);
     }
 }
 
