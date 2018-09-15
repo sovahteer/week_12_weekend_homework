@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectView = new SelectView(selectElement);
     selectView.bindEvents();    
 
-    // const infoParagraph = document.querySelector('#info-paragraph')
-    // const pictureView = new PictureView(infoParagraph);
-    // pictureView.bindEvents();
+    const imageContainer = document.querySelector('.image-container');
+    const pictureView = new PictureView(imageContainer);
+    pictureView.bindEvents();
 
     const astronomyPictures = new AstronomyPictures();
     astronomyPictures.bindEvents();

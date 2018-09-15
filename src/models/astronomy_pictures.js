@@ -15,16 +15,15 @@ const AstronomyPictures = function(){
     AstronomyPictures.prototype.getData = function(pictureDate) {
         const requestHelper = new RequestHelper(`https://api.nasa.gov/planetary/apod?api_key=${API_Key}&date=${DateHelper.formatDate(pictureDate)}`);
         requestHelper.get((data) => {
-            console.log('Data got!', data);
             PubSub.publish('Pictures:pictures-ready', data);
             this.publishPictures(data)
+            console.log('Data Got!', data);
         })
     }
 
     AstronomyPictures.prototype.publishPictures = function(data) {
         this.pictureData = data;
         PubSub.publish('Pictures:pictures-ready', this.pictureData)
-        console.log(this.pictureData);
     }
 }
 
