@@ -6,7 +6,7 @@ const DateHelper = require ('../helpers/date-helper');
 const AstronomyPictures = function(){
 
     AstronomyPictures.prototype.bindEvents = function(){
-        PubSub.subscribe('SelectView:onChange', (event) => {
+        PubSub.subscribe('SelectView:change', (event) => {
             const pictureIndex = event.detail;
             this.getData(pictureIndex);
         });
